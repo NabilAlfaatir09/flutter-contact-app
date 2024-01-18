@@ -38,6 +38,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                   child: TextField(
                     controller: controller.cariContact,
+                    onChanged: (value) => controller.searchContacts(value),
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Cari Nama Kontak",
@@ -48,13 +49,13 @@ class HomeView extends GetView<HomeController> {
                   height: 50,
                 ),
                 Obx(
-                  () => (controller.contacts.isEmpty)
+                  () => (controller.contactsUpdate.isEmpty)
                       ? const Text("Belum ada Daftar Kontak")
                       : ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            var contacts = controller.contacts[index];
+                            var contacts = controller.contactsUpdate[index];
                             return ListTile(
                               leading: CircleAvatar(
                                 backgroundColor: Color(
@@ -180,7 +181,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                             );
                           },
-                          itemCount: controller.contacts.length,
+                          itemCount: controller.contactsUpdate.length,
                           separatorBuilder: (context, index) => const Divider(),
                         ),
                 ),
