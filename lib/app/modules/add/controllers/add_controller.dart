@@ -23,6 +23,5 @@ class AddController extends GetxController {
     namaDepan.text = "";
     namaBelakang.text = "";
     noTelepon.text = "";
-    Get.snackbar("Success", "Kontak berhasil ditambahkan");
   }
 }

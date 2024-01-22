@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_contact_app/app/modules/home/controllers/home_controller.dart';
 
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../controllers/add_controller.dart';
 
@@ -92,6 +93,18 @@ class AddView extends GetView<AddController> {
                   );
                   controller.successValidate();
                   Navigator.pop(context);
+                  showDialog(
+                    barrierDismissible: true,
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.blue,
+                        title: const Text("Kontak berhasil ditambahkan"),
+                        content: Lottie.asset("assets/checklist.json",
+                            width: 200, height: 200),
+                      );
+                    },
+                  );
                 }
               },
               splashColor: Colors.transparent,

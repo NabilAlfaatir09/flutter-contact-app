@@ -17,6 +17,7 @@ class HomeController extends GetxController {
     contacts.add(contactAdd);
     id++;
     contactsUpdate.assignAll(contacts);
+    debugPrint("Data kontak : $contactsUpdate");
   }
 
   editContact(int id, String namaDepan, String namaBelakang, String noTelepon) {
@@ -29,12 +30,14 @@ class HomeController extends GetxController {
         "noTelepon": noTelepon,
       };
       contactsUpdate.assignAll(contacts);
+      debugPrint("Edit kontak : $contactsUpdate");
     }
   }
 
   deleteContact(int id) {
     contacts.removeWhere((contact) => contact["id"] == id);
     contactsUpdate.assignAll(contacts);
+    debugPrint("Apus kontak : $contactsUpdate");
   }
 
   searchContacts(String search) {
@@ -60,6 +63,7 @@ class HomeController extends GetxController {
           .toList();
     }
     contactsUpdate.assignAll(result);
+    debugPrint("Cari kontak : $contactsUpdate");
   }
 
   @override

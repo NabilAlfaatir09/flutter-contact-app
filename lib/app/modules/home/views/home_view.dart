@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contact_app/app/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'dart:math' as math;
 import '../controllers/home_controller.dart';
 
@@ -101,10 +102,12 @@ class HomeView extends GetView<HomeController> {
                                         );
                                       },
                                       child: Container(
+                                        width: 50,
+                                        height: 50,
                                         decoration: BoxDecoration(
                                           color: Colors.green,
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(5),
                                         ),
                                         child: const Center(
                                           child: Icon(
@@ -124,49 +127,68 @@ class HomeView extends GetView<HomeController> {
                                       splashColor: Colors.transparent,
                                       onTap: () {
                                         showDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                backgroundColor: Colors.blue,
-                                                title: Text(
-                                                    "Yakin Hapus Kontak ${contacts["namaDepan"]}"),
-                                                content: Text(
-                                                    "Kontak ${contacts["namaDepan"]} akan dihapus dari daftar"),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text(
-                                                      "NO",
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                      ),
+                                          barrierDismissible: false,
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              backgroundColor: Colors.blue,
+                                              title: Text(
+                                                  "Yakin Hapus Kontak ${contacts["namaDepan"]}"),
+                                              content: Text(
+                                                  "Kontak ${contacts["namaDepan"]} akan dihapus dari daftar"),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text(
+                                                    "NO",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
                                                     ),
                                                   ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      controller.deleteContact(
-                                                          contacts["id"]);
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text(
-                                                      "YES",
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                      ),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    controller.deleteContact(
+                                                        contacts["id"]);
+                                                    Navigator.pop(context);
+                                                    showDialog(
+                                                      barrierDismissible: true,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          backgroundColor:
+                                                              Colors.blue,
+                                                          title: const Text(
+                                                              "Kontak berhasil dihapus"),
+                                                          content: Lottie.asset(
+                                                              "assets/checklist.json",
+                                                              width: 200,
+                                                              height: 200),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: const Text(
+                                                    "YES",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
                                                     ),
                                                   ),
-                                                ],
-                                              );
-                                            });
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
                                       },
                                       child: Container(
+                                        width: 50,
+                                        height: 50,
                                         decoration: BoxDecoration(
                                           color: Colors.red,
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(5),
                                         ),
                                         child: const Center(
                                           child: Icon(

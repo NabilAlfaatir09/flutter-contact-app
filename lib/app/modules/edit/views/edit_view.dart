@@ -4,6 +4,7 @@ import 'package:flutter_contact_app/app/modules/edit/controllers/edit_controller
 import 'package:flutter_contact_app/app/modules/home/controllers/home_controller.dart';
 
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class EditView extends GetView<EditController> {
   const EditView({Key? key}) : super(key: key);
@@ -94,6 +95,18 @@ class EditView extends GetView<EditController> {
                   homeControll.editContact(arg["id"], namaDepan.text,
                       namaBelakang.text, noTelepon.text);
                   Navigator.pop(context);
+                  showDialog(
+                    barrierDismissible: true,
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.blue,
+                        title: const Text("Kontak berhasil diubah"),
+                        content: Lottie.asset("assets/checklist.json",
+                            width: 200, height: 200),
+                      );
+                    },
+                  );
                 }
               },
               splashColor: Colors.transparent,
