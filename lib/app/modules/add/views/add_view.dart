@@ -99,7 +99,7 @@ class AddView extends GetView<AddController> {
                     builder: (context) {
                       return AlertDialog(
                         backgroundColor: Colors.blue,
-                        title: const Text("Kontak berhasil ditambahkan"),
+                        title: const Text("Kontak berhasil ditambah"),
                         content: Lottie.asset("assets/checklist.json",
                             width: 200, height: 200),
                       );
