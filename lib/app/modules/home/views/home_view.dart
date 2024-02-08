@@ -217,6 +217,7 @@ class HomeView extends GetView<HomeController> {
         onPressed: () => Navigator.pushNamed(context, Routes.ADD),
         child: const Icon(Icons.add),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
