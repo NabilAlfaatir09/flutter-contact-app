@@ -78,12 +78,12 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                               title: Text(
-                                contacts["namaDepan"] +
+                                contacts.namaDepan +
                                     " " +
-                                    contacts["namaBelakang"],
+                                    contacts.namaBelakang,
                               ),
                               subtitle: Text(
-                                contacts["noTelepon"].toString(),
+                                contacts.noTelepon.toString(),
                               ),
                               trailing: FittedBox(
                                 fit: BoxFit.fill,
@@ -133,9 +133,9 @@ class HomeView extends GetView<HomeController> {
                                             return AlertDialog(
                                               backgroundColor: Colors.blue,
                                               title: Text(
-                                                  "Yakin Hapus Kontak ${contacts["namaDepan"]}"),
+                                                  "Yakin Hapus Kontak ${contacts.namaDepan}"),
                                               content: Text(
-                                                  "Kontak ${contacts["namaDepan"]} akan dihapus dari daftar"),
+                                                  "Kontak ${contacts.namaBelakang} akan dihapus dari daftar"),
                                               actions: [
                                                 TextButton(
                                                   onPressed: () {
@@ -151,7 +151,7 @@ class HomeView extends GetView<HomeController> {
                                                 TextButton(
                                                   onPressed: () {
                                                     controller.deleteContact(
-                                                        contacts["id"]);
+                                                        contacts.id);
                                                     Navigator.pop(context);
                                                     showDialog(
                                                       barrierDismissible: true,

@@ -1,3 +1,4 @@
+import 'package:flutter_contact_app/app/data/contact.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -27,7 +28,7 @@ class DatabaseHelper {
   void _createDb(Database db, int newVersion) async {
     await db.execute('''
       CREATE TABLE $tableName (
-        id INTEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         namaDepan TEXT,
         namaBelakang TEXT,
         noTelepon TEXT
@@ -35,21 +36,19 @@ class DatabaseHelper {
       ''');
   }
 
-  Future<int> insertContacts(Map<String, dynamic> contact) async {
+  Future<int> insertContacts(Contact contact) async {
     Database db = await database;
     return await db.insert(
       tableName,
-      contact,
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      contact.toMap(),
     );
   }
 
-  Future<int> updateContacts(Map<String, dynamic> contact, int id) async {
+  Future<int> updateContacts(Contact contact, int id) async {
     Database db = await database;
     return await db.update(
       tableName,
-      contact,
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      contact.toMap(),
       where: "id = ?",
       whereArgs: [id],
     );
@@ -64,8 +63,19 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<Map<String, dynamic>>> getContacts() async {
-    Database db = await database;
-    return await db.query(tableName);
+  Future<List<Contact>> getAllContacts() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> contacts = await db.query(tableName);
+    return List.generate(
+      contacts.length,
+      (i) {
+        return Contact(
+          id: contacts[i]['id'],
+          namaDepan: contacts[i]['namaDepan'],
+          namaBelakang: contacts[i]['namaBelakang'],
+          noTelepon: contacts[i]['noTelepon'],
+        );
+      },
+    );
   }
 }

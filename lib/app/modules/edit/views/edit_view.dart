@@ -12,11 +12,11 @@ class EditView extends GetView<EditController> {
   Widget build(BuildContext context) {
     var arg = Get.arguments;
     final TextEditingController namaDepan =
-        TextEditingController(text: arg["namaDepan"]);
+        TextEditingController(text: arg.namaDepan);
     final TextEditingController namaBelakang =
-        TextEditingController(text: arg["namaBelakang"]);
+        TextEditingController(text: arg.namaBelakang);
     final TextEditingController noTelepon =
-        TextEditingController(text: arg["noTelepon"]);
+        TextEditingController(text: arg.noTelepon);
     var homeControll = Get.put(HomeController());
     return Scaffold(
       appBar: AppBar(
@@ -92,7 +92,7 @@ class EditView extends GetView<EditController> {
             InkWell(
               onTap: () {
                 if (controller.key.currentState!.validate()) {
-                  homeControll.editContact(arg["id"], namaDepan.text,
+                  homeControll.editContact(arg.id, namaDepan.text,
                       namaBelakang.text, noTelepon.text);
                   Navigator.pop(context);
                   showDialog(

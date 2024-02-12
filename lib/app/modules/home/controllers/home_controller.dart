@@ -1,74 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_contact_app/app/data/contact.dart';
+import 'package:flutter_contact_app/app/data/database_helper.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   TextEditingController cariContact = TextEditingController();
-  int id = 1;
-  var contacts = [].obs;
+  final DatabaseHelper _databaseHelper = DatabaseHelper();
   var contactsUpdate = [].obs;
 
-  updateContact(String namaDepan, String namaBelakang, String noTelepon) {
-    Map<String, dynamic> contactAdd = {
-      "id": id,
-      "namaDepan": namaDepan,
-      "namaBelakang": namaBelakang,
-      "noTelepon": noTelepon,
-    };
-    contacts.add(contactAdd);
-    id++;
-    contactsUpdate.assignAll(contacts);
-    debugPrint("Data kontak : $contactsUpdate");
+  updateContact(String namaDepan, String namaBelakang, String noTelepon) async {
+    final newContact = Contact(
+      namaDepan: namaDepan,
+      namaBelakang: namaBelakang,
+      noTelepon: noTelepon,
+    );
+    await _databaseHelper.insertContacts(newContact);
+    getAllContacts();
   }
 
-  editContact(int id, String namaDepan, String namaBelakang, String noTelepon) {
-    int index = contacts.indexWhere((contact) => contact["id"] == id);
-    if (index != -1) {
-      contacts[index] = {
-        "id": id,
-        "namaDepan": namaDepan,
-        "namaBelakang": namaBelakang,
-        "noTelepon": noTelepon,
-      };
-      contactsUpdate.assignAll(contacts);
-      debugPrint("Edit kontak : $contactsUpdate");
-    }
+  editContact(
+      int id, String namaDepan, String namaBelakang, String noTelepon) async {
+    final updatedContact = Contact(
+      id: id,
+      namaDepan: namaDepan,
+      namaBelakang: namaBelakang,
+      noTelepon: noTelepon,
+    );
+    await _databaseHelper.updateContacts(updatedContact, id);
+    getAllContacts();
   }
 
-  deleteContact(int id) {
-    contacts.removeWhere((contact) => contact["id"] == id);
-    contactsUpdate.assignAll(contacts);
-    debugPrint("Apus kontak : $contactsUpdate");
+  deleteContact(int id) async {
+    await _databaseHelper.deleteContacts(id);
+    getAllContacts();
   }
 
-  searchContacts(String search) {
-    List result = [];
+  searchContacts(String search) async {
+    final result = await _databaseHelper.getAllContacts();
     if (search.isEmpty) {
-      result = contacts;
+      contactsUpdate.assignAll(result);
     } else {
-      result = contacts
-          .where(
-            (element) =>
-                (element["namaDepan"] + " " + element["namaBelakang"])
-                    .toLowerCase()
-                    .contains(
-                      search.toLowerCase(),
-                    ) ||
-                element["namaBelakang"].toLowerCase().contains(
-                      search.toLowerCase(),
-                    ) ||
-                element["noTelepon"].toLowerCase().contains(
-                      search.toLowerCase(),
-                    ),
-          )
+      final filteredContacts = result
+          .where((contact) =>
+              ("${contact.namaDepan!.toLowerCase()} ${contact.namaBelakang!.toLowerCase()}")
+                  .contains(search.toLowerCase()) ||
+              contact.namaBelakang!
+                  .toLowerCase()
+                  .contains(search.toLowerCase()) ||
+              contact.noTelepon!.toLowerCase().contains(search.toLowerCase()))
           .toList();
+      contactsUpdate.assignAll(filteredContacts);
     }
+  }
+
+  getAllContacts() async {
+    final result = await _databaseHelper.getAllContacts();
     contactsUpdate.assignAll(result);
-    debugPrint("Cari kontak : $contactsUpdate");
   }
 
   @override
   void onInit() {
-    contactsUpdate.assignAll(contacts);
+    getAllContacts();
     super.onInit();
   }
 }
