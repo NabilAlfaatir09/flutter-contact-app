@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   TextEditingController cariContact = TextEditingController();
   final DatabaseHelper _databaseHelper = DatabaseHelper();
-  var contactsUpdate = [].obs;
+  var contactsUpdate = <Contact>[].obs;
 
   updateContact(String namaDepan, String namaBelakang, String noTelepon) async {
     final newContact = Contact(
@@ -42,12 +42,12 @@ class HomeController extends GetxController {
     } else {
       final filteredContacts = result
           .where((contact) =>
-              ("${contact.namaDepan!.toLowerCase()} ${contact.namaBelakang!.toLowerCase()}")
+              ("${contact.namaDepan.toLowerCase()} ${contact.namaBelakang.toLowerCase()}")
                   .contains(search.toLowerCase()) ||
-              contact.namaBelakang!
+              contact.namaBelakang
                   .toLowerCase()
                   .contains(search.toLowerCase()) ||
-              contact.noTelepon!.toLowerCase().contains(search.toLowerCase()))
+              contact.noTelepon.toLowerCase().contains(search.toLowerCase()))
           .toList();
       contactsUpdate.assignAll(filteredContacts);
     }

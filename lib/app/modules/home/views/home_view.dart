@@ -78,9 +78,7 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                               title: Text(
-                                contacts.namaDepan +
-                                    " " +
-                                    contacts.namaBelakang,
+                                "${contacts.namaDepan} ${contacts.namaBelakang}",
                               ),
                               subtitle: Text(
                                 contacts.noTelepon.toString(),
@@ -151,7 +149,7 @@ class HomeView extends GetView<HomeController> {
                                                 TextButton(
                                                   onPressed: () {
                                                     controller.deleteContact(
-                                                        contacts.id);
+                                                        contacts.id!);
                                                     Navigator.pop(context);
                                                     showDialog(
                                                       barrierDismissible: true,

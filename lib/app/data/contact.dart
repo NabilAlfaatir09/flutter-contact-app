@@ -1,10 +1,15 @@
 class Contact {
   int? id;
-  String? namaDepan;
-  String? namaBelakang;
-  String? noTelepon;
+  String namaDepan;
+  String namaBelakang;
+  String noTelepon;
 
-  Contact({this.id, this.namaDepan, this.namaBelakang, this.noTelepon});
+  Contact({
+    this.id,
+    required this.namaDepan,
+    required this.namaBelakang,
+    required this.noTelepon,
+  });
 
   Map<String, dynamic> toMap() {
     return {
