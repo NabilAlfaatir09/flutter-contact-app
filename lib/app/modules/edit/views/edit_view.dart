@@ -87,7 +87,7 @@ class EditView extends GetView<EditController> {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 48,
             ),
             InkWell(
               onTap: () {
