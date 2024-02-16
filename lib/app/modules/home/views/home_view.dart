@@ -28,11 +28,10 @@ class HomeView extends GetView<HomeController> {
                   height: 50,
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.98,
+                  width: MediaQuery.of(context).size.width * 0.9,
                   height: 50,
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  padding: const EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.black),
@@ -41,17 +40,30 @@ class HomeView extends GetView<HomeController> {
                     controller: controller.cariContact,
                     onChanged: (value) => controller.searchContacts(value),
                     decoration: const InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Colors.blue,
+                      ),
                       border: InputBorder.none,
                       hintText: "Cari Nama Kontak",
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
                 Obx(
                   () => (controller.contactsUpdate.isEmpty)
-                      ? const Text("Belum ada Daftar Kontak")
+                      ? Column(
+                          children: [
+                            Lottie.asset(
+                              "assets/datanotfound.json",
+                              height: 250,
+                              width: 250,
+                            ),
+                            const Text("Belum ada Daftar Kontak"),
+                          ],
+                        )
                       : ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -210,12 +222,18 @@ class HomeView extends GetView<HomeController> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        onPressed: () => Navigator.pushNamed(context, Routes.ADD),
-        child: const Icon(Icons.add),
+      floatingActionButton: SizedBox(
+        width: 65,
+        height: 65,
+        child: FittedBox(
+          child: FloatingActionButton(
+            backgroundColor: Colors.blue,
+            onPressed: () => Navigator.pushNamed(context, Routes.ADD),
+            child: const Icon(Icons.add),
+          ),
+        ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

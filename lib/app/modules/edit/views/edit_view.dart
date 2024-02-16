@@ -87,13 +87,17 @@ class EditView extends GetView<EditController> {
               ),
             ),
             const SizedBox(
-              height: 48,
+              height: 50,
             ),
             InkWell(
               onTap: () {
                 if (controller.key.currentState!.validate()) {
-                  homeControll.editContact(arg.id, namaDepan.text,
-                      namaBelakang.text, noTelepon.text);
+                  homeControll.editContact(
+                    arg.id,
+                    namaDepan.text,
+                    namaBelakang.text,
+                    noTelepon.text,
+                  );
                   Navigator.pop(context);
                   showDialog(
                     barrierDismissible: true,
