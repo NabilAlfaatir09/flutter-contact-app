@@ -50,7 +50,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
                 Obx(
                   () => (controller.contactsUpdate.isEmpty)
@@ -58,8 +58,8 @@ class HomeView extends GetView<HomeController> {
                           children: [
                             Lottie.asset(
                               "assets/datanotfound.json",
-                              height: 250,
-                              width: 250,
+                              height: 300,
+                              width: 300,
                             ),
                             const Text("Belum ada Daftar Kontak"),
                           ],
@@ -69,146 +69,166 @@ class HomeView extends GetView<HomeController> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             var contacts = controller.contactsUpdate[index];
-                            return ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Color(
-                                  (math.Random().nextDouble() * 0xFFFFFF)
-                                      .toInt(),
-                                ).withOpacity(1.0),
-                                child: Icon(
-                                  Icons.person,
-                                  color: Color(
-                                            (math.Random().nextDouble() *
-                                                    0xFFFFFF)
-                                                .toInt(),
-                                          )
-                                              .withOpacity(1.0)
-                                              .computeLuminance() >
-                                          0.5
-                                      ? Colors.black
-                                      : Colors.white,
+                            return Card(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                              ),
-                              title: Text(
-                                "${contacts.namaDepan} ${contacts.namaBelakang}",
-                              ),
-                              subtitle: Text(
-                                contacts.noTelepon.toString(),
-                              ),
-                              trailing: FittedBox(
-                                fit: BoxFit.fill,
-                                child: Row(
-                                  children: [
-                                    InkWell(
-                                      highlightColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      splashColor: Colors.transparent,
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          Routes.EDIT,
-                                          arguments: contacts,
-                                        );
-                                      },
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        child: const Center(
-                                          child: Icon(
-                                            Icons.edit,
-                                            color: Colors.black,
-                                          ),
-                                        ),
+                                child: Center(
+                                  child: ListTile(
+                                    leading: CircleAvatar(
+                                      radius: 25,
+                                      backgroundColor: Color(
+                                        (math.Random().nextDouble() * 0xFFFFFF)
+                                            .toInt(),
+                                      ).withOpacity(1.0),
+                                      child: Icon(
+                                        Icons.person,
+                                        color: Color(
+                                                  (math.Random().nextDouble() *
+                                                          0xFFFFFF)
+                                                      .toInt(),
+                                                )
+                                                    .withOpacity(1.0)
+                                                    .computeLuminance() >
+                                                0.5
+                                            ? Colors.black
+                                            : Colors.white,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      width: 5,
+                                    title: Text(
+                                      "${contacts.namaDepan} ${contacts.namaBelakang}",
                                     ),
-                                    InkWell(
-                                      highlightColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      splashColor: Colors.transparent,
-                                      onTap: () {
-                                        showDialog(
-                                          barrierDismissible: false,
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              backgroundColor: Colors.blue,
-                                              title: Text(
-                                                  "Yakin Hapus Kontak ${contacts.namaDepan}"),
-                                              content: Text(
-                                                  "Kontak ${contacts.namaBelakang} akan dihapus dari daftar"),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Text(
-                                                    "NO",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
+                                    subtitle: Text(
+                                      contacts.noTelepon.toString(),
+                                    ),
+                                    trailing: FittedBox(
+                                      fit: BoxFit.fill,
+                                      child: Row(
+                                        children: [
+                                          InkWell(
+                                            highlightColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            splashColor: Colors.transparent,
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                context,
+                                                Routes.EDIT,
+                                                arguments: contacts,
+                                              );
+                                            },
+                                            child: Container(
+                                              width: 50,
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                color: Colors.green,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: const Center(
+                                                child: Icon(
+                                                  Icons.edit,
+                                                  color: Colors.black,
                                                 ),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    controller.deleteContact(
-                                                        contacts.id!);
-                                                    Navigator.pop(context);
-                                                    showDialog(
-                                                      barrierDismissible: true,
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return AlertDialog(
-                                                          backgroundColor:
-                                                              Colors.blue,
-                                                          title: const Text(
-                                                              "Kontak berhasil dihapus"),
-                                                          content: Lottie.asset(
-                                                              "assets/checklist.json",
-                                                              width: 200,
-                                                              height: 200),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  child: const Text(
-                                                    "YES",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        child: const Center(
-                                          child: Icon(
-                                            Icons.remove,
-                                            color: Colors.black,
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          InkWell(
+                                            highlightColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            splashColor: Colors.transparent,
+                                            onTap: () {
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    backgroundColor:
+                                                        Colors.blue,
+                                                    title: Text(
+                                                        "Yakin Hapus Kontak ${contacts.namaDepan}"),
+                                                    content: Text(
+                                                        "Kontak ${contacts.namaBelakang} akan dihapus dari daftar"),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Text(
+                                                          "NO",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          controller
+                                                              .deleteContact(
+                                                                  contacts.id!);
+                                                          Navigator.pop(
+                                                              context);
+                                                          showDialog(
+                                                            barrierDismissible:
+                                                                true,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return AlertDialog(
+                                                                backgroundColor:
+                                                                    Colors.blue,
+                                                                title: const Text(
+                                                                    "Kontak berhasil dihapus"),
+                                                                content: Lottie
+                                                                    .asset(
+                                                                        "assets/checklist.json",
+                                                                        width:
+                                                                            200,
+                                                                        height:
+                                                                            200),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                        child: const Text(
+                                                          "YES",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Container(
+                                              width: 50,
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: const Center(
+                                                child: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             );
