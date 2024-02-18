@@ -10,13 +10,7 @@ class EditView extends GetView<EditController> {
   const EditView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var arg = Get.arguments;
-    final TextEditingController namaDepan =
-        TextEditingController(text: arg.namaDepan);
-    final TextEditingController namaBelakang =
-        TextEditingController(text: arg.namaBelakang);
-    final TextEditingController noTelepon =
-        TextEditingController(text: arg.noTelepon);
+    final arg = Get.arguments;
     var homeControll = Get.put(HomeController());
     return Scaffold(
       appBar: AppBar(
@@ -32,10 +26,12 @@ class EditView extends GetView<EditController> {
               height: 50,
             ),
             TextFormField(
-              controller: namaDepan,
+              controller: controller.namaDepan,
               validator: (value) => controller.cekNama(value.toString()),
+              maxLength: 10,
               cursorColor: Colors.blue,
               decoration: InputDecoration(
+                counterText: "",
                 label: const Text("Nama Depan"),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.blue),
@@ -50,10 +46,12 @@ class EditView extends GetView<EditController> {
               height: 20,
             ),
             TextFormField(
-              controller: namaBelakang,
+              controller: controller.namaBelakang,
               validator: (value) => controller.cekNama(value.toString()),
+              maxLength: 10,
               cursorColor: Colors.blue,
               decoration: InputDecoration(
+                counterText: "",
                 label: const Text("Nama Belakang"),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.blue),
@@ -68,14 +66,16 @@ class EditView extends GetView<EditController> {
               height: 20,
             ),
             TextFormField(
-              controller: noTelepon,
+              controller: controller.noTelepon,
               validator: (value) => controller.cekNomor(value.toString()),
+              maxLength: 12,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
               keyboardType: TextInputType.number,
               cursorColor: Colors.blue,
               decoration: InputDecoration(
+                counterText: "",
                 label: const Text("No Telepon"),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.blue),
@@ -94,9 +94,9 @@ class EditView extends GetView<EditController> {
                 if (controller.key.currentState!.validate()) {
                   homeControll.editContact(
                     arg.id,
-                    namaDepan.text,
-                    namaBelakang.text,
-                    noTelepon.text,
+                    controller.namaDepan.text,
+                    controller.namaBelakang.text,
+                    controller.noTelepon.text,
                   );
                   Navigator.pop(context);
                   showDialog(

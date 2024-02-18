@@ -28,8 +28,10 @@ class AddView extends GetView<AddController> {
             TextFormField(
               controller: controller.namaDepan,
               validator: (value) => controller.cekNama(value.toString()),
+              maxLength: 10,
               cursorColor: Colors.blue,
               decoration: InputDecoration(
+                counterText: "",
                 label: const Text("Nama Depan"),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.blue),
@@ -47,7 +49,9 @@ class AddView extends GetView<AddController> {
               controller: controller.namaBelakang,
               validator: (value) => controller.cekNama(value.toString()),
               cursorColor: Colors.blue,
+              maxLength: 10,
               decoration: InputDecoration(
+                counterText: "",
                 label: const Text("Nama Belakang"),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.blue),
@@ -64,12 +68,14 @@ class AddView extends GetView<AddController> {
             TextFormField(
               controller: controller.noTelepon,
               validator: (value) => controller.cekNomor(value.toString()),
+              maxLength: 12,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
               keyboardType: TextInputType.number,
               cursorColor: Colors.blue,
               decoration: InputDecoration(
+                counterText: "",
                 label: const Text("No Telepon"),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.blue),
