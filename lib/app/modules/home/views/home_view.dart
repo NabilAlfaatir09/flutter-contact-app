@@ -155,7 +155,7 @@ class HomeView extends GetView<HomeController> {
                                                     title: Text(
                                                         "Yakin Hapus Kontak ${contacts.namaDepan}"),
                                                     content: Text(
-                                                        "Kontak ${contacts.namaBelakang} akan dihapus dari daftar"),
+                                                        "Kontak ${contacts.namaDepan} akan dihapus dari daftar"),
                                                     actions: [
                                                       TextButton(
                                                         onPressed: () {
