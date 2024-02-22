@@ -22,49 +22,89 @@ class HomeView extends GetView<HomeController> {
         children: [
           SingleChildScrollView(
             physics: const ScrollPhysics(),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: 50,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.only(left: 5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.black),
-                  ),
-                  child: TextField(
-                    controller: controller.cariContact,
-                    onChanged: (value) => controller.searchContacts(value),
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Colors.blue,
-                      ),
-                      border: InputBorder.none,
-                      hintText: "Cari Nama Kontak",
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Obx(
-                  () => (controller.contactsUpdate.isEmpty)
-                      ? Column(
-                          children: [
-                            Lottie.asset(
-                              "assets/datanotfound.json",
-                              height: 300,
-                              width: 300,
+            child: Obx(
+              () => (controller.contactsUpdate.isEmpty)
+                  ? Column(
+                      children: [
+                        Lottie.asset(
+                          "assets/datanotfound.json",
+                          height: 300,
+                          width: 300,
+                        ),
+                        const Text("Belum ada Daftar Kontak"),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: 50,
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.only(left: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.black),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0x3F000000),
+                                blurRadius: 4,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: TextField(
+                            controller: controller.cariContact,
+                            onChanged: (value) =>
+                                controller.searchContacts(value),
+                            decoration: const InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Colors.blue,
+                              ),
+                              border: InputBorder.none,
+                              hintText: "Cari Nama Kontak",
                             ),
-                            const Text("Belum ada Daftar Kontak"),
-                          ],
-                        )
-                      : ListView.separated(
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        InkWell(
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          onTap: () => controller.sortNama(),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 30,
+                              ),
+                              Icon(
+                                Icons.sort,
+                                size: 35,
+                                color: Colors.blue,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                "Sorting Nama",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
@@ -236,8 +276,8 @@ class HomeView extends GetView<HomeController> {
                           itemCount: controller.contactsUpdate.length,
                           separatorBuilder: (context, index) => const Divider(),
                         ),
-                ),
-              ],
+                      ],
+                    ),
             ),
           ),
         ],

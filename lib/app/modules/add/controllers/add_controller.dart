@@ -8,14 +8,19 @@ class AddController extends GetxController {
   TextEditingController noTelepon = TextEditingController();
 
   cekNama(String value) {
-    if (value == "") {
+    if (value.isEmpty) {
       return "Nama tidak boleh kosong";
     }
   }
 
   cekNomor(String value) {
-    if (value == "") {
+    RegExp regex = RegExp(r'^((?:\+62|62)|08)[2-9]{1}[0-9]+$');
+    if (value.isEmpty) {
       return "Nomor tidak boleh kosong";
+    } else if (value.length < 12) {
+      return "Nomor harus terdiri dari 12 angka atau lebih";
+    } else if (!regex.hasMatch(value)) {
+      return "Nomor tidak valid, gunakan nomor Indonesia";
     }
   }
 
