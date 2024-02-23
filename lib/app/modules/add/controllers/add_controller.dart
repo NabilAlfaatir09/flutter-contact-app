@@ -14,7 +14,7 @@ class AddController extends GetxController {
   }
 
   cekNomor(String value) {
-    RegExp regex = RegExp(r'^((?:\+62|62)|08)[2-9]{1}[0-9]+$');
+    RegExp regex = RegExp(r'^(\+62|62|0)8[1-9][0-9]{6,9}$');
     if (value.isEmpty) {
       return "Nomor tidak boleh kosong";
     } else if (value.length < 12) {

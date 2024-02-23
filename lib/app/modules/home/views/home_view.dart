@@ -95,9 +95,9 @@ class HomeView extends GetView<HomeController> {
                                 width: 5,
                               ),
                               Text(
-                                "Sorting Nama",
+                                "Sort",
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

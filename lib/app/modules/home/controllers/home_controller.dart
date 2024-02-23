@@ -7,7 +7,6 @@ class HomeController extends GetxController {
   TextEditingController cariContact = TextEditingController();
   final DatabaseHelper _databaseHelper = DatabaseHelper();
   var contactsUpdate = <Contact>[].obs;
-  var sortedContacts = <Contact>[].obs;
   var isAscend = true.obs;
 
   updateContact(String namaDepan, String namaBelakang, String noTelepon) async {
@@ -65,8 +64,7 @@ class HomeController extends GetxController {
           b.namaDepan.toLowerCase().compareTo(a.namaDepan.toLowerCase()));
     }
     isAscend.value = !isAscend.value;
-    sortedContacts.assignAll(sortedList);
-    contactsUpdate.assignAll(sortedContacts);
+    contactsUpdate.assignAll(sortedList);
   }
 
   getAllContacts() async {
