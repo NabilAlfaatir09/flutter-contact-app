@@ -26,6 +26,44 @@ class HomeView extends GetView<HomeController> {
               () => (controller.contactsUpdate.isEmpty)
                   ? Column(
                       children: [
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: 50,
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.only(left: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.black),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0x3F000000),
+                                blurRadius: 4,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: TextField(
+                            controller: controller.cariContact,
+                            onChanged: (value) =>
+                                controller.searchContacts(value),
+                            decoration: const InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Colors.blue,
+                              ),
+                              border: InputBorder.none,
+                              hintText: "Cari Nama Kontak",
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
                         Lottie.asset(
                           "assets/datanotfound.json",
                           height: 300,
@@ -37,7 +75,7 @@ class HomeView extends GetView<HomeController> {
                   : Column(
                       children: [
                         const SizedBox(
-                          height: 30,
+                          height: 40,
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width * 0.9,
