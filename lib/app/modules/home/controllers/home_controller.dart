@@ -58,10 +58,10 @@ class HomeController extends GetxController {
     List<Contact> sortedList = contactsUpdate.toList();
     if (isAscend.value) {
       sortedList.sort((a, b) =>
-          a.namaDepan.toLowerCase().compareTo(b.namaDepan.toLowerCase()));
+          b.namaDepan.toLowerCase().compareTo(a.namaDepan.toLowerCase()));
     } else {
       sortedList.sort((a, b) =>
-          b.namaDepan.toLowerCase().compareTo(a.namaDepan.toLowerCase()));
+          a.namaDepan.toLowerCase().compareTo(b.namaDepan.toLowerCase()));
     }
     isAscend.value = !isAscend.value;
     contactsUpdate.assignAll(sortedList);
